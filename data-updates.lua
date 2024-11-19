@@ -1,0 +1,1 @@
+require("__intrets-lib__.prototypes-list").do_data_updates()
