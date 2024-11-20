@@ -1,2 +1,3 @@
 return {
+    "better-spaceship",
 }
