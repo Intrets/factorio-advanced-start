@@ -1,4 +1,5 @@
 require("__core__.lualib.circuit-connector-sprites")
+require("__intrets-lib__.rework-data")
 
 local wreck_flags =
 {
@@ -9,6 +10,28 @@ local wreck_flags =
     "not-blueprintable",
     "not-deconstructable"
 }
+
+prototype_add_created_script_trigger(data.raw["container"]["crash-site-spaceship-wreck-big-1"], "big-wreck")
+prototype_add_created_script_trigger(data.raw["container"]["crash-site-spaceship-wreck-big-2"], "big-wreck")
+
+prototype_add_created_script_trigger(data.raw["container"]["crash-site-spaceship-wreck-medium-1"], "medium-wreck")
+prototype_add_created_script_trigger(data.raw["container"]["crash-site-spaceship-wreck-medium-2"], "medium-wreck")
+prototype_add_created_script_trigger(data.raw["container"]["crash-site-spaceship-wreck-medium-3"], "medium-wreck")
+
+local small_wrecks = require("small-wreck-redefinitions")
+
+for _, prototype in pairs(small_wrecks) do
+    data.raw[prototype.type][prototype.name] = nil
+    prototype.type = "container"
+    prototype.inventory_size = 1
+    prototype.inventory_type = "normal"
+
+    prototype_add_created_script_trigger(prototype, "small-wreck")
+
+    data:extend({
+        prototype
+    })
+end
 
 data.raw["container"]["crash-site-spaceship"] = nil
 
@@ -124,7 +147,7 @@ data.extend({
         {
             { type = "fire", percent = 100 }
         },
-        inventory_size = 20,
+        inventory_size = 60,
         minable =
         {
             mining_time = 2.3
